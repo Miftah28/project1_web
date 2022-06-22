@@ -27,9 +27,12 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
+                            @php
+                            $i =0;
+                            @endphp
                             @forelse ($products as $product)
                             <tr>
-                                <td>{{ $product->id }}</td>
+                                <td class="text-center">{{ ++$i }}</td>
                                 <td>{{ $product->sku }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->status = 0 ? "Draft" : ($product->status = 1 ? "Active" : "Inactive")}}</td>

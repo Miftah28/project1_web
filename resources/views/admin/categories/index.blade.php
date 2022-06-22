@@ -20,16 +20,19 @@
                     </form>
                     <table class="table table-bordered table-stripped">
                         <thead>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Slug</th>
                             <th>Parent</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
+                            @php
+                            $i =0;
+                            @endphp
                             @forelse($categories as $category)
                             <tr>
-                                <td>{{$category->id}}</td>
+                                <td class="text-center">{{ ++$i }}</td>
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->slug}}</td>
                                 <td>{{$category->parents ? $category->parents->name : ''}}</td>

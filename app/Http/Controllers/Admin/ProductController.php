@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -249,9 +251,16 @@ class ProductController extends Controller
     public function remove_image($id)
     {
         $image = ProductImage::findOrFail($id);
+        if(File::exists($image->path)){
+            File::delete(public_path('storage/'.$image->path));
+        }else{
+            Session::flash('error', $image->path);
+        }
+
+        Storage::delete($image->path);
 
         if ($image->delete()) {
-            Session::flash('success', 'Image has been deleted');
+            // Session::flash('success', 'Image has been deleted');
         }
 
         return redirect('admin/products/' . $image->product->id . '/images');

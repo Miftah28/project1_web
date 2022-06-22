@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Pengunjung;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Permintaan;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -44,12 +46,17 @@ class ProductCustomerController extends Controller
     }
     public function postproduk(Request $request)
     {
+
+        $data1 = Permintaan::where('product_id','=', $request->query('id'))->get();
+
         $data = Product::select(DB::raw('products.*,product_images.path'))
-        ->join('product_images', 'product_images.product_id', '=', 'products.id')
-        ->where('products.id',$request->query('id'))
-        ->groupBy('products.id')
-        ->get();
+            ->join('product_images', 'product_images.product_id', '=', 'products.id')
+            ->where('products.id', $request->query('id'))
+            ->groupBy('products.id')
+            ->get();
+
         $this->data['produk'] = $data;
+        $this->data['r']= $data1;
         return view('/pengunjung/postproduk', $this->data);
     }
 }

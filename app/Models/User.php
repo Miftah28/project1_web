@@ -34,6 +34,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function customers()
+    {
+        return $this->hasOne('App\Models\Customer');
+    }
+
     /**
      * The attributes that should be cast.
      *

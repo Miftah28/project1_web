@@ -21,7 +21,7 @@ class UserController extends Controller
             ->get();
         $id = "";
         foreach ($sql as $d) {
-            if ($email == $d->email && Hash::check($password, $d->password)) {
+            if ($email == $d->email && Hash::check($password, $d->password) && $d->role == '0' ) {
                 $result = true;
                 $id = $d->id;
                 break;
@@ -91,13 +91,27 @@ class UserController extends Controller
         $params['instansi'] = $request->input('instansi');
         $saved2 = DB::table('customers')->where('user_id', $id)->update($params);
 
-        if($saved1 && $saved2){
-            
+        if ($saved1 && $saved2) {
         }
         return response()->json($saved2, Response::HTTP_OK);
     }
 
-    public function makeContract(Request $request):JsonResponse{
+    public function ubahPassword($id, Request $request): JsonResponse
+    {
+        $param = $request->except('_token');
+        $pass = $request->input('opass');
+        $saved1 = User::findOrFail($id);
+        if (Hash::check($pass, $saved1->password)) {
+            $param['password'] = bcrypt($request->input('npass'));
+            $saved1->update($param);
+        } else {
+            $saved1 = "Fail";
+        }
+        return response()->json($saved1, Response::HTTP_OK);
+    }
+
+    public function makeContract(Request $request): JsonResponse
+    {
         if ($request->has('file')) {
             $file = $request->file('file');
             $name = 'kontrak_' . time();

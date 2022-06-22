@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Pengunjung;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PermintaanRequest;
 use App\Models\Permintaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
+use App\Models\Customer;
 
 class KontrakController extends Controller
 {
@@ -57,17 +60,32 @@ class KontrakController extends Controller
         }
         return redirect('/kontrakSaya');
     }
-    public function tambah(Request $request)
-    {
-        // dd($request->all());
-        $saved = false;
-        $saved = Permintaan::create($request->all());
-        if ($saved) {
-            Session::flash('success', 'Kontrak has been saved');
-        } else {
-            Session::flash('error', 'Kontrak could not be saved');
-        }
-        return redirect()->route('/pengunjung/kontrak');
-    }
 
+    public function create(Request $request){
+        $this->validate($request,[
+            'product_id' => 'required',
+            'file' =>'required|max:4096',
+        ]);
+
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $name = 'kontrak_' . time();
+            $fileName = $name . '.' . $file->getClientOriginalExtension();
+            $folder = '/uploads/kontrak';
+            $filePath = $file->storeAs($folder, $fileName, 'public');
+
+            $params = $request->except('_token');
+            $params['name_file'] = $fileName;
+            $params['path'] = $filePath;
+            $params['status'] = "0";
+            $params['customer_id'] = Auth::user()->customers->id;
+
+            if (Permintaan::create($params)) {
+                Session::flash('success', 'Request has been saved');
+            } else {
+                Session::flash('error', 'Request could not be saved');
+            }
+            return redirect('/kontrakSaya');
+        }
+    }
 }

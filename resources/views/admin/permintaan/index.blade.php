@@ -20,7 +20,7 @@
                     </form>
                     <table class="table table-bordered table-stripped table-responsive">
                         <thead>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Produk</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -29,9 +29,12 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
+                            @php
+                            $i =0;
+                            @endphp
                             @forelse ($requests as $request)
                             <tr>
-                                <td>{{ $request->id }}</td>
+                                <td class="text-center">{{ ++$i }}</td>
                                 <td>{{ $request->product->name }}</td>
                                 <td>{{ $request->customer->name }}</td>
                                 <td>{{ $request->customer->email }}</td>

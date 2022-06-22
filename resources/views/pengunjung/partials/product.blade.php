@@ -31,7 +31,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{$row->name}}</h5>
                 <!-- <p class="text">{{$row->short_description}}</p> -->
-                <a href="#" class="btn btn-primary">Show Product</a>
+                <a href="/productCustomer" class="btn btn-primary">Show Product</a>
             </div>
         </div>
     </div>

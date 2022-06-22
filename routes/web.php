@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PermintaanController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Pengunjung\PostController;
 use App\Http\Controllers\Pengunjung\KontrakController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Pengunjung\ProductCustomerController;
 use App\Http\Controllers\MitraController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/', [PostController::class, 'index'])->name('pengunjung');
 Route::get('/productCustomer', [ProductCustomerController::class, 'index'])->name('product');
 Route::get('/postproduk', [ProductCustomerController::class, 'postproduk'])->name('postproduk');
 Route::get('/permintaan', [PostController::class, 'permintaan'])->name('permintaan');
+Route::post('/kontraksaya/create',[KontrakController::class,'create'])->name('createkontrak');
 Route::get('/kontrakSaya', [KontrakController::class, 'index'])->name('kontrak');
 Route::get('/kontrakSaya/download/{requestID}', [KontrakController::class, 'download'])->name('kontrak.download');
 Route::get('/kontrakSaya/edit/{requestID}', [KontrakController::class, 'edit'])->name('kontrak.edit');
@@ -49,6 +51,10 @@ Route::get('/tampilkandata/{id}', [MitraController::class, 'tampilkandata'])->na
 Route::post('/updatedata/{id}', [MitraController::class, 'updatedata'])->name('updatedata');
 Route::get('/delete/{id}', [MitraController::class, 'delete'])->name('delete');
 
+// --ROUTE LAPORAN--
+Route::get('/laporan', [LaporanController::class,'index'])->name('laporan');
+Route::get('/laporan/cetak_pdf', [LaporanController::class,'cetak'])->name('cetak');
+
 // --ROUTE API--
 $router->group(['namespace' => 'App\Http\Controllers\Api', 'prefix' => 'api'], function () use ($router) {
 
@@ -75,11 +81,14 @@ $router->group(['namespace' => 'App\Http\Controllers\Api', 'prefix' => 'api'], f
     $router->get('customer/{id}', ['uses' => 'UserController@showUser']);
 
     $router->post('update/{id}', ['uses' => 'UserController@update']);
+    
+    $router->post('password/{id}', ['uses' => 'UserController@ubahPassword']);
 
     $router->post('register', ['uses' => 'UserController@register']);
 
     $router->post('makeContract', ['uses' => 'UserController@makeContract']);
 
     $router->get('cek/{idc}&{idp}', ['uses' => 'ContractController@cekKontrak']);
-});
 
+    $router->get('download/{id}', ['uses' => 'ContractController@download']);
+});

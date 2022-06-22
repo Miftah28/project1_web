@@ -1,9 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-@php
-$formTitle = !empty($request)?'Update':'New'
-@endphp
+
 <div class="content">
     <div class="row">
         <div class="col-lg-6">

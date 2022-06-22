@@ -55,8 +55,8 @@
                         <span class="nav-text">Permintaan</span> <b class="caret"></b>
                     </a>
                 </li>
-                <li class="{{($currentAdminMenu == 'request')?'active':''}}">
-                    <a class="sidenav-item-link" href="{{ route('permintaan.index') }}" aria-expanded="false" aria-controls="icons">
+                <li class="{{($currentAdminMenu == 'laporan')?'active':''}}">
+                    <a class="sidenav-item-link" href="{{route('laporan')}}" aria-expanded="false" aria-controls="icons">
                         <i class="mdi mdi-file-document"></i>
                         <span class="nav-text">Laporan</span> <b class="caret"></b>
                     </a>

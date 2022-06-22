@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Permintaan;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ContractController extends Controller
 {
@@ -46,5 +47,15 @@ class ContractController extends Controller
             }else{
                 return "Fail";
             }
+    }
+
+    public function download($id)
+    {
+        $permintaan = Permintaan::findOrFail($id);
+        if (Storage::disk('public')->exists('/' . $permintaan->path)) {
+            return response()->download(storage_path('app/public/' . $permintaan->path), $permintaan->name_file);
+        } else {
+            return "Fail";
+        }
     }
 }

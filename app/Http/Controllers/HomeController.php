@@ -29,9 +29,9 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role == '0') {
-            return view('/admin/dashboard/index', $this->data);
-        } else {
             return redirect('/');
+        } else {
+            return view('/admin/dashboard/index', $this->data);
         }
     }
 }
