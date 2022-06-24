@@ -28,7 +28,7 @@ class KontrakController extends Controller
         $requests = Permintaan::select(DB::raw('requests.*'))
             ->join('customers', 'customers.id', '=', 'requests.customer_id')
             ->join('products', 'products.id', '=', 'requests.product_id')
-            ->where('customers.user_id', '=', Auth::user()->id)
+            ->where('customers.id', '=', Auth::user()->customers->id)
             ->orderBy('requests.id', 'ASC');
         if ($q = $request->query('q')) {
             $requests = $requests

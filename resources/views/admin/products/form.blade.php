@@ -49,10 +49,10 @@ $formTitle = !empty($product) ? 'Update' : 'New'
                         {!! Form::label('description', 'Description') !!}
                         {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'description']) !!}
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         {!! Form::label('status', 'Status') !!}
                         {!! Form::select('status', $statuses , null, ['class' => 'form-control', 'placeholder' => '-- Set Status --']) !!}
-                    </div>
+                    </div> --}}
                     <div class="form-footer pt-5 border-top">
                         <button type="submit" class="btn btn-primary btn-default">Save</button>
                         <a href="{{ url('admin/products') }}" class="btn btn-secondary btn-default">Back</a>

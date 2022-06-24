@@ -79,7 +79,7 @@ class ProductController extends Controller
             $params = $request->except('_token');
             $params['slug'] = Str::slug($params['name']);
             $params['user_id'] = Auth::user()->id;
-
+            $params['status'] = '1';
             $saved = false;
             $saved = DB::transaction(function () use ($params) {
                 $product = Product::create($params);
@@ -151,7 +151,7 @@ class ProductController extends Controller
         $params['slug'] = Str::slug($params['name']);
 
         $product = Product::findOrFail($id);
-
+        $params['status'] = '1';
         $saved = false;
         $saved = DB::transaction(function () use ($product, $params) {
             $product->update($params);

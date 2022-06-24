@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
         return [
             'sku' => $sku,
             'name' => $name,
-            'status' => 'required',
+            // 'status' => 'required',
         ];
     }
 }

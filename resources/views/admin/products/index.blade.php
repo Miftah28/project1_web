@@ -23,7 +23,7 @@
                             <th>No</th>
                             <th>Kode</th>
                             <th>Name</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -35,7 +35,7 @@
                                 <td class="text-center">{{ ++$i }}</td>
                                 <td>{{ $product->sku }}</td>
                                 <td>{{ $product->name }}</td>
-                                <td>{{ $product->status = 0 ? "Draft" : ($product->status = 1 ? "Active" : "Inactive")}}</td>
+                                {{-- <td>{{ $product->status = 0 ? "Draft" : ($product->status = 1 ? "Active" : "Inactive")}}</td> --}}
                                 <td>
                                     <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
 

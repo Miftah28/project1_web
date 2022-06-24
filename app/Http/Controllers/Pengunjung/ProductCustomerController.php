@@ -46,9 +46,12 @@ class ProductCustomerController extends Controller
     }
     public function postproduk(Request $request)
     {
-
-        $data1 = Permintaan::where('product_id','=', $request->query('id'))->get();
-
+        if(Auth::id() != null){
+            $data1 = Permintaan::where('product_id','=', $request->query('id'))->where('customer_id','like', '%'.Auth::user()->customers->id.'%')->get();
+        }else{
+            $data1 = Permintaan::where('product_id','=', $request->query('id'))->get();
+        }
+       
         $data = Product::select(DB::raw('products.*,product_images.path'))
             ->join('product_images', 'product_images.product_id', '=', 'products.id')
             ->where('products.id', $request->query('id'))

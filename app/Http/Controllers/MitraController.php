@@ -30,7 +30,7 @@ class MitraController extends Controller
 
     public function tambahmitra()
     {
-        return view('tambahdata');
+        return view('tambahdata',$this->data);
     }
 
     public function insertdata(Request $request)
@@ -49,8 +49,9 @@ class MitraController extends Controller
     public function tampilkandata($id)
     {
         $data = Mitra::find($id);
+        $this->data['data'] = $data;
         // dd($data);
-        return view('tampildata', compact('data'));
+        return view('tampildata', $this->data);
     }
 
     public function updatedata(Request $request, $id)

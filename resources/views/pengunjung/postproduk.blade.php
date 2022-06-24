@@ -15,10 +15,10 @@
                     @else
                         @forelse ($r as $p)
                         @empty
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Buat Kontrak
-                                </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Buat Kontrak
+                            </button>
                         @endforelse
         @endif
         <a href="/productCustomer" class="d-block mt-3">Back</a>
